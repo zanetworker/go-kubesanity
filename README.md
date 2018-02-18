@@ -69,7 +69,7 @@ Coming soon!
 
 ## Authors
 
-See also the list of [contributors](https://github.com/zanetworker/opentaas/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/zanetworker/go-kubesanity/graphs/contributors) who participated in this project.
 
 ## License
 
