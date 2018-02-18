@@ -14,7 +14,7 @@ To get started with Go-kubesanity, you can download the corresponding binary for
 
 ### Clone and build
 
-You need to install `make` and *optionally* `Go` on your system before proceeding.
+You need to install `make` and `Go` on your system before proceeding.
 
 ```bash
 git clone https://github.com/zanetworker/go-kubesanity.git
