@@ -71,6 +71,11 @@ Coming soon!
 
 See also the list of [contributors](https://github.com/zanetworker/go-kubesanity/graphs/contributors) who participated in this project.
 
+## TODO
+
+- [ ] Testing
+- [ ] More usecases for network, storage, pods, services configurations. 
+
 ## License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details
