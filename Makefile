@@ -3,6 +3,7 @@
 PLATFORMS := darwin windows linux 
 OS ?= darwin
 VERSION ?= latest
+BUMP ?= minor
 BINARY := kubesanity
 os = $(word 1, $@)
 
@@ -36,3 +37,8 @@ dry:
 .PHONY: doc 
 doc: dry 
 	@-./$(BINARY)  > /dev/null  2>&1 || true  
+
+.PHONY: bumpversion 
+bumpversion: 
+	@- chmod +x versionutils/bumpversion.sh
+	@- ./versionutils/bumpversion.sh $(PWD)/VERSION $(BUMP)
