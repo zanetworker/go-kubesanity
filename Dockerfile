@@ -8,3 +8,4 @@ FROM alpine
 WORKDIR /app
 COPY --from=build-env /go/src/github.com/zanetworker/go-kubesanity/kubesanity /app/
 ENTRYPOINT [ "./kubesanity" ]
+

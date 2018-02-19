@@ -12,15 +12,15 @@ bumpversion(){
 		local major="$(cut -d'.' -f1 <<< $version)"
 		local minor="$(cut -d'.' -f2 <<< $version)"
 		local patch="$(cut -d'.' -f3 <<< $version)"
+		declare -a versionArray=("$major" "$minor" "$patch")
 
-		local versionArray=("$major" "$minor" "$patch")
 		_is_number "$versionArray"
 
 		if [[ -n "$versionPath" ]]; then 
 			case "$versionType" in
-				major) let "major++" ;;
-				minor) let "minor++" ;; 
-				patch) let "patch++" ;; 
+				major) let "major+=1" ;;
+				minor) let "minor+=1" ;; 
+				patch) let "patch+=1" ;; 
 			esac
 		fi 
 		
@@ -30,11 +30,12 @@ bumpversion(){
 }
 
 _is_number(){
-	declare versionNumbersToCheck="$@"
+	declare -a versionNumbersToCheck="$@"
 
     for i in "$versionNumbersToCheck"; do 
-		local re='^[0-9]+$'
-		if ! [[ "$i" =~ ^-?[0-9]+$ ]]; then echo "error: Not a number" >&2; exit 1; fi
+		if ! [[ "$i" =~ ^[0-9]+$ ]] ; then
+			echo "$i: Not a number" >&2; exit 1
+		fi
 	done
 }
 
@@ -44,7 +45,7 @@ _help() {
 }
 
 main(){
-	if [[ "$#" -eq 0 ]]; then
+	if [[ "$#" -eq 0 || "$#" -eq 1 ]]; then
     	_help 
 		exit 1 
 	fi

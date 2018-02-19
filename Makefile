@@ -29,7 +29,6 @@ else
 	cp release/$(BINARY)-$(VERSION)-windows-amd64 $(GOPATH)/bin/kubesanity
 endif
 
-
 .PHONY: dry
 dry: 
 	@- cd cmd && CGO_ENABLED=0 GOOS=$(OS) GOARCH=amd64 go build -ldflags="-X main.documentation=" -o ../$(BINARY)
