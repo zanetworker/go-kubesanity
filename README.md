@@ -54,6 +54,12 @@ Global Flags:
       --kubeconfig string   location of your kuberntes config file (default "/Users/user_name/.kube/config")
 ```
 
+## Docker
+
+```bash
+docker run -v ${HOME}/.kube:/root/.kube:ro zanetworker/go-kubesanity:0.1.0
+```
+
 ## Running the tests
 
 ## Contributing

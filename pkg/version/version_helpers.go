@@ -5,11 +5,11 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/zanetworker/opentaas/pkg/globalutils"
+	"github.com/zanetworker/go-kubesanity/pkg/kubesanityutils"
 )
 
 func getVersion() string {
-	versionFileLocation := globalutils.GetDir("root") + "/" + "VERSION"
+	versionFileLocation := kubesanityutils.GetDir("root") + "/" + "VERSION"
 	versionBytes, err := ioutil.ReadFile(versionFileLocation)
 	if err != nil {
 		return ""

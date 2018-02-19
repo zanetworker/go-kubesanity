@@ -61,7 +61,6 @@ func (kc *KubernetesClient) CheckDuplicatePodIP() (bool, error) {
 				otherPod.Status.PodIP,
 			)
 		}
-		log.Info(pod.Status.PodIP)
 		podIPs[pod.Status.PodIP] = pod
 	}
 	log.Info("No duplicate pod IPs found!")

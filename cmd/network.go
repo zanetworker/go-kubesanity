@@ -28,6 +28,7 @@ func newNetworkCmd(out io.Writer) *cobra.Command {
 	}
 
 	f := networkCmd.Flags()
+	networkCmd.GenBashCompletionFile("out.sh")
 	f.BoolVar(&networkCmdParams.duplicatePodIP, "checkDuplicatePodIP", false, "if set to true, kubesanity will check for duplicate Pod IPs in all namespaces")
 	f.BoolVar(&networkCmdParams.duplicateServiceIP, "checkDuplicateServiceIP", false, "if set to true, kubesanity will check for duplicate Service IPs in all namespaces")
 

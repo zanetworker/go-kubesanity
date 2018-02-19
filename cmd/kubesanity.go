@@ -28,7 +28,8 @@ import (
 )
 
 var (
-	settings kubesanity_env.EnvSettings
+	settings      kubesanity_env.EnvSettings
+	documentation string
 	// cfgFile  string
 )
 
@@ -88,8 +89,8 @@ func printLogo() {
 
 func runKubesanity(cmd *cobra.Command, args []string) {
 	printLogo()
-	if err := cmd.Help(); err != nil {
-		log.ErrorS("Failed to print kubesanity command help", err)
+	if len(args) == 0 {
+		cmd.Help()
 	}
 }
 
@@ -100,8 +101,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	err := doc.GenMarkdownTree(cmd, "./doc")
-	if err != nil {
-		log.Fatal(err)
+	if len(documentation) > 0 {
+		err := doc.GenMarkdownTree(cmd, "./doc")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }

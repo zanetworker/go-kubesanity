@@ -31,7 +31,7 @@ endif
 
 .PHONY: dry
 dry: 
-	@- cd cmd && GOOS=$(OS) GOARCH=amd64 go build -o ../$(BINARY)
+	@- cd cmd && CGO_ENABLED=0 GOOS=$(OS) GOARCH=amd64 go build -ldflags="-X main.documentation=" -o ../$(BINARY)
 
 .PHONY: doc 
 doc: dry 
