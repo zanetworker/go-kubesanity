@@ -57,7 +57,7 @@ Global Flags:
 ## Docker
 
 ```bash
-docker run -v ${HOME}/.kube:/root/.kube:ro zanetworker/go-kubesanity:0.1.0
+docker run -v ${HOME}/.kube:/root/.kube:ro zanetworker/go-kubesanity
 ```
 
 ## Running the tests
