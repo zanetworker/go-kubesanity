@@ -35,8 +35,10 @@ func newNetworkCmd(out io.Writer) *cobra.Command {
 }
 
 func (n *networkCmdParams) run() error {
+
+	kubernetesClient := network.NewKubeClient()
 	if n.duplicatePodIP {
-		hasDuplicatePodIPs, err := network.CheckDuplicatePodIP()
+		hasDuplicatePodIPs, err := kubernetesClient.CheckDuplicatePodIP()
 		if hasDuplicatePodIPs {
 			log.Error("Discovered Duplicate Pod IPs in you Kubernetes Deployment")
 		}
@@ -44,7 +46,7 @@ func (n *networkCmdParams) run() error {
 	}
 
 	if n.duplicateServiceIP {
-		hasDuplicateServiceIPs, err := network.CheckDuplicateServiceIP()
+		hasDuplicateServiceIPs, err := kubernetesClient.CheckDuplicateServiceIP()
 		if hasDuplicateServiceIPs {
 			log.Error("Discovered Duplicate Service IPs in you Kubernetes Deployment")
 		}

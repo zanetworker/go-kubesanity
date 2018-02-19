@@ -12,7 +12,14 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func newKubeClient() v1.CoreV1Interface {
+//KubernetesClient is the client object we will use to connect to our cluster
+type KubernetesClient struct {
+	Client v1.CoreV1Interface
+}
+
+//NewKubeClient initializes the kubernetes client
+func NewKubeClient() *KubernetesClient {
+
 	kubeconfigPath, ok := os.LookupEnv("KUBECONFIG_PATH")
 	if !ok {
 		log.FatalS("KUBECONFIG_PATH was not set")
@@ -30,15 +37,14 @@ func newKubeClient() v1.CoreV1Interface {
 
 	kubeclient := clientset.CoreV1()
 
-	return kubeclient
+	return &KubernetesClient{kubeclient}
 }
 
 //CheckDuplicatePodIP checks if two pods have the same IP in all namespaces
-func CheckDuplicatePodIP() (bool, error) {
-	kubeclient := newKubeClient()
+func (kc *KubernetesClient) CheckDuplicatePodIP() (bool, error) {
 
 	podIPs := make(map[string]typev1.Pod)
-	podList, err := kubeclient.Pods("").List(metav1.ListOptions{})
+	podList, err := kc.Client.Pods("").List(metav1.ListOptions{})
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -55,6 +61,7 @@ func CheckDuplicatePodIP() (bool, error) {
 				otherPod.Status.PodIP,
 			)
 		}
+		log.Info(pod.Status.PodIP)
 		podIPs[pod.Status.PodIP] = pod
 	}
 	log.Info("No duplicate pod IPs found!")
@@ -62,12 +69,10 @@ func CheckDuplicatePodIP() (bool, error) {
 }
 
 //CheckDuplicateServiceIP checks if two services have the same IP in all namespaces
-func CheckDuplicateServiceIP() (bool, error) {
-
-	kubeclient := newKubeClient()
+func (kc *KubernetesClient) CheckDuplicateServiceIP() (bool, error) {
 
 	serviceIPs := make(map[string]typev1.Service)
-	serviceList, err := kubeclient.Services("").List(metav1.ListOptions{})
+	serviceList, err := kc.Client.Services("").List(metav1.ListOptions{})
 
 	if err != nil {
 		log.Error(err.Error())
