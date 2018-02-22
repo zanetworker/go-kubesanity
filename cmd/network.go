@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"strconv"
 
 	"github.com/spf13/cobra"
 	"github.com/zanetworker/go-kubesanity/pkg/log"
@@ -23,6 +24,8 @@ func newNetworkCmd(out io.Writer) *cobra.Command {
 		Short: "validate network configuration parameters",
 		Long:  globalUsage,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			log.Info("number of flags " + strconv.Itoa(len(args)))
+
 			return networkCmdParams.run()
 		},
 	}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/zanetworker/go-kubesanity/pkg/kubesanityutils"
 	"github.com/zanetworker/go-kubesanity/pkg/log"
 	typev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -52,14 +53,14 @@ func (kc *KubernetesClient) CheckDuplicatePodIP() (bool, error) {
 	for _, pod := range podList.Items {
 		otherPod, ipExists := podIPs[pod.Status.PodIP]
 		if ipExists {
-			return true, fmt.Errorf("Duplicate Service IP Address: %s/%s -> %s and %s/%s -> %s",
+			return true, kubesanityutils.NewDuplicaPodIPError(fmt.Errorf("Duplicate Pod IP Address: %s/%s -> %s and %s/%s -> %s",
 				pod.ObjectMeta.Namespace,
 				pod.ObjectMeta.Name,
 				pod.Status.PodIP,
 				otherPod.ObjectMeta.Namespace,
 				otherPod.ObjectMeta.Name,
 				otherPod.Status.PodIP,
-			)
+			).Error())
 		}
 		podIPs[pod.Status.PodIP] = pod
 	}
