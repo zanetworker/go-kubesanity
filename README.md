@@ -26,7 +26,7 @@ make OS=<darwin|linux|windows> install
 # execute kubesanity for command overview
 kubesanity
 
-# build kubesanity binary if you don't have go installed
+# build kubesanity binary 
 make OS=<darwin|linux|windows> dry
 
 # execute kubesanity command for overview
