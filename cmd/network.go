@@ -44,17 +44,17 @@ func (n *networkCmdParams) run() error {
 	if n.duplicatePodIP {
 		hasDuplicatePodIPs, err := kubernetesClient.CheckDuplicatePodIP()
 		if hasDuplicatePodIPs {
-			log.Error("Discovered Duplicate Pod IPs in you Kubernetes Deployment")
+			log.ErrorS("Discovered Duplicate Pod IPs in you Kubernetes Deployment", err)
 		}
-		return err
+		return nil
 	}
 
 	if n.duplicateServiceIP {
 		hasDuplicateServiceIPs, err := kubernetesClient.CheckDuplicateServiceIP()
 		if hasDuplicateServiceIPs {
-			log.Error("Discovered Duplicate Service IPs in you Kubernetes Deployment")
+			log.ErrorS("Discovered Duplicate Service IPs in your Kubernetes Deployment", err)
 		}
-		return err
+		return nil
 	}
 	return nil
 }
